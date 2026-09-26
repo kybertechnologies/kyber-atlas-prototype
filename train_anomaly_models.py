@@ -114,12 +114,12 @@ def train_models(data: pd.DataFrame, mean: pd.DataFrame, noise_std: pd.DataFrame
     for bus in BUSES:
         profile, bus_noise = mean.loc[bus], noise_std.loc[bus]
         features = make_features(data[data.bus == bus], profile, bus_noise)
-        model = IsolationForest(n_estimators=300, max_samples=len(features),
+        model = IsolationForest(n_estimators=150, max_samples=512,
                                 contamination=CONTAMINATION, random_state=SEED)
         model.fit(features)
         models[bus] = {"model": model, "profile": profile, "noise_std": bus_noise,
                        "features": FEATURES, "persistence": PERSISTENCE, "bus": bus}
-        joblib.dump(models[bus], MODEL_DIR / f"bus_{bus.split()[1].zfill(2)}.joblib")
+        joblib.dump(models[bus], MODEL_DIR / f"bus_{bus.split()[1].zfill(2)}.joblib", compress=3)
     return models
 
 
