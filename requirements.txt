@@ -1,0 +1,8 @@
+pypsa>=1.0
+networkx>=3.0
+plotly>=5.0
+scikit-learn>=1.3
+pandas>=2.1
+numpy>=1.26
+streamlit>=1.50
+matplotlib>=3.8
